@@ -1,3 +1,3 @@
 # projects.wejkey.org
 
-[DEMO - Savings?](projects.wejkey.org/project/102425/)
+[DEMO - Savings?](https://projects.wejkey.org/project/102425/)
