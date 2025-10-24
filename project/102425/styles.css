@@ -75,6 +75,12 @@ button, input, select, textarea {
   font: inherit;
 }
 
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -213,6 +219,9 @@ button {
   padding: 12px 18px;
   font-weight: 600;
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible {
@@ -251,6 +260,16 @@ button:focus-visible {
 .ghost:hover {
   color: var(--text);
   border-color: rgba(15, 23, 42, 0.2);
+}
+
+@media (hover: none) {
+  .nav-link:hover,
+  .primary:hover,
+  .secondary:hover,
+  .ghost:hover,
+  .icon-button:hover {
+    transform: none;
+  }
 }
 
 .ghost.danger {
@@ -329,6 +348,11 @@ button:focus-visible {
 @media (max-width: 1400px) {
   .panel-grid { grid-template-columns: 1fr 1fr; }
   .panel-grid .panel.medium:last-child { grid-column: auto; }
+}
+
+@media (max-width: 768px) {
+  .content { padding: 24px 20px; }
+  .topbar-text h2 { font-size: 24px; }
 }
 
 .panel {
@@ -983,13 +1007,23 @@ button:focus-visible {
     z-index: 60;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    padding-top: calc(16px + env(safe-area-inset-top));
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    padding-left: calc(24px + env(safe-area-inset-left));
+    padding-right: calc(24px + env(safe-area-inset-right));
   }
 
   .nav {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  .nav-link { flex: 0 0 auto; }
 
   .content {
     padding: 24px;
@@ -1039,6 +1073,8 @@ button:focus-visible {
 
   .nav {
     width: 100%;
+    flex-wrap: wrap; 
+    overflow-x: visible;
   }
 
   .nav-link {
@@ -1048,4 +1084,17 @@ button:focus-visible {
   .section-header { flex-direction: column; align-items: flex-start; }
   .filters { width: 100%; }
   .filters select { flex: 1; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.content {
+  padding-bottom: calc(48px + env(safe-area-inset-bottom));
 }
