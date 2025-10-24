@@ -34,6 +34,9 @@
   const cookieNotice = document.getElementById('cookie-notice');
   const cookieAccept = document.getElementById('cookie-accept');
   const navButtons = document.querySelectorAll('.nav-link');
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarCollapsible = document.getElementById('sidebar-collapsible');
   const views = document.querySelectorAll('.view');
   const viewTitle = document.getElementById('view-title');
 
@@ -155,7 +158,21 @@
     if (cookieNotice) cookieNotice.hidden = true;
   });
 
-  navButtons.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.target)));
+  function setMenu(open) {
+    if (!menuToggle || !sidebar) return;
+    sidebar.classList.toggle('open', !!open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function closeMenu() { setMenu(false); }
+  if (menuToggle) menuToggle.addEventListener('click', () => setMenu(!sidebar.classList.contains('open')));
+  document.addEventListener('click', (e) => {
+    if (!sidebar) return;
+    if (!sidebar.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1100) closeMenu(); });
+
+  navButtons.forEach(btn => btn.addEventListener('click', () => { switchView(btn.dataset.target); closeMenu(); }));
   document.querySelectorAll('[data-target="plans"]').forEach(btn => btn.addEventListener('click', () => switchView('plans')));
   document.querySelectorAll('[data-target="transactions"]').forEach(btn => btn.addEventListener('click', () => switchView('transactions')));
 
