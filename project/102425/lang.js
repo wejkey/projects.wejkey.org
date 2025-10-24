@@ -1,7 +1,3 @@
-// Lightweight i18n helper with attribute-driven translation
-// Usage: add data-i18n="key.path" for textContent
-//        add data-i18n-placeholder="key.path" for placeholder attributes
-
 (function () {
   const dictionary = {
     en: {
@@ -48,7 +44,7 @@
         totalWord: 'total'
       },
       panel: {
-        cashFlowTrends: 'Cash Flow Trends',
+        cashFlowTrends: 'Statistics',
         monthlyDepositsVsWithdrawals: 'Monthly deposits versus withdrawals',
         focusPlans: 'Focus Plans',
         recentPlansAndProgress: 'Most recent plans and their progress',
@@ -148,7 +144,7 @@
         weightedAcross: 'Vážené naprieč všetkými plánmi'
       },
       panel: {
-        cashFlowTrends: 'Trendy cash flow',
+        cashFlowTrends: 'Štatistika',
         monthlyDepositsVsWithdrawals: 'Mesačné vklady verzus výbery',
         focusPlans: 'Zamerané plány',
         recentPlansAndProgress: 'Najnovšie plány a ich postup',
@@ -211,7 +207,6 @@
     }
   };
 
-  // Runtime additions for Slovak translations and extras
   try {
     const sk = dictionary.sk;
     if (sk) {
